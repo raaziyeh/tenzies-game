@@ -1,0 +1,12 @@
+.plane {
+    margin: 3rem auto;
+    display: grid;
+    gap: 15px;
+    grid-template: repeat(2, 1fr) / repeat(5, minmax(3.5rem, 3.5rem));  
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
