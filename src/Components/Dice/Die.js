@@ -1,4 +1,4 @@
-import classes from "./Die.module.css"
+import classes from "./Die.module.scss"
 
 function Die(props) {
     let classNames = classes.dice

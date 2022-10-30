@@ -1,6 +1,6 @@
 import { useState } from "react"
 import Die from "./Die"
-import classes from "./DicePlane.module.css"
+import classes from "./DicePlane.module.scss"
 
 const DUMMY_DICE = [
 	{

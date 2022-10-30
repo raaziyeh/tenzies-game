@@ -1,0 +1,25 @@
+@import "./scss/variables.scss";
+
+.main {
+	background-color: $bg-color;
+	width: 90vw;
+	max-width: 700px;
+	margin: 5% auto;
+	padding: 4rem;
+	border-radius: 10px;
+	.header {
+		font-weight: bold;
+		font-size: 2.5rem;
+		line-height: 1.8rem;
+		color: $dark-black-txt;
+		text-align: center;
+		padding: 1rem;
+	}
+	.description {
+		font-family: "Inter";
+		color: $light-black-txt;
+		text-align: center;
+		font-size: 1.2rem;
+		padding: 0.5rem;
+	}
+}

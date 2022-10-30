@@ -1,7 +1,7 @@
 //Components
 import DicePlane from "./Components/Dice/DicePlane"
 import Button from "./Components/UI/Button"
-import classes from './App.module.css';
+import classes from './App.module.scss';
 
 function App() {
   return (
