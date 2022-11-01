@@ -77,7 +77,7 @@ function App() {
 				localStorage.setItem("high-score", rollCounts)
 			}
 		}
-	}, [dice])
+	}, [dice, highScore, rollCounts])
 
 	return (
 		<main className={classes.main}>
