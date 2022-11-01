@@ -3,9 +3,9 @@
 .wrapper {
 	@include align-center;
 	.plane {
-		margin: 3rem auto;
+		margin: 1rem auto 1rem;
 		display: grid;
-		gap: 15px;
+		gap: 20px;
 		grid-template: repeat(2, 1fr) / repeat(5, minmax(3.5rem, 3.5rem));
 	}
 }

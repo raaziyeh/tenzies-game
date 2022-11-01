@@ -1,8 +1,8 @@
 // React
 import { useState, useEffect } from "react"
 // Packages
-import { nanoid } from "nanoid";
-import Confetti from "react-confetti";
+import { nanoid } from "nanoid"
+import Confetti from "react-confetti"
 //Components
 import DicePlane from "./Components/Dice/DicePlane"
 import Button from "./Components/UI/Button"
@@ -26,31 +26,36 @@ function initializeDice() {
 
 function App() {
 	const [hasWon, setHasWon] = useState(false)
+	const [rollCounts, setRollCounts] = useState(0)
+	const [highScore, setHighScore] = useState(() =>
+		localStorage.getItem("high-score")
+	)
 	const [dice, setDice] = useState(initializeDice)
 
 	const toggleDieHold = (id) => {
-		setDice(dice => {
-			return dice.map(die => {
+		setDice((dice) => {
+			return dice.map((die) => {
 				if (die.id === id) {
 					return {
 						...die,
-						isHeld: !die.isHeld
+						isHeld: !die.isHeld,
 					}
 				}
-				return die				
+				return die
 			})
 		})
 	}
 
 	const rollDice = () => {
-		setDice(dice => {
-			return dice.map(die => {
+		setRollCounts((prevCounts) => prevCounts + 1)
+		setDice((dice) => {
+			return dice.map((die) => {
 				if (die.isHeld) {
 					return die
 				}
 				return {
 					...die,
-					number: rollDie()
+					number: rollDie(),
 				}
 			})
 		})
@@ -59,26 +64,42 @@ function App() {
 	const resetGame = () => {
 		setDice(initializeDice())
 		setHasWon(false)
+		setRollCounts(0)
 	}
 
 	useEffect(() => {
-		const isAllDiceIsHeld = dice.every(die => die.isHeld)
-		const isAllSameValue = dice.every(die => die.number === dice[0].number)
+		const isAllDiceIsHeld = dice.every((die) => die.isHeld)
+		const isAllSameValue = dice.every((die) => die.number === dice[0].number)
 		if (isAllDiceIsHeld && isAllSameValue) {
 			setHasWon(true)
+			if (rollCounts < highScore) {
+				setHighScore(rollCounts)
+				localStorage.setItem("high-score", rollCounts)
+			}
 		}
 	}, [dice])
-
 
 	return (
 		<main className={classes.main}>
 			{hasWon && <Confetti />}
 			<h1 className={classes.header}>Tenzies</h1>
-			<p className={classes.description}>
-				Roll until all dice are the same. Click each die to freeze it at its
-				current value between rolls.
+			{!hasWon && (
+				<p className={classes.description}>
+					Roll until all dice are the same. Click each die to freeze it at its
+					current value between rolls.
+				</p>
+			)}
+			{hasWon && (
+				<p className={classes["wining-message"]}>
+					Congratulations! You Won! 🎉
+				</p>
+			)}
+			<p className={classes["high-score"]}>
+				🏆 High Score: {highScore ? highScore : " _"}
 			</p>
-			{hasWon && <p className={classes["wining-message"]}> Congratulations! You Won! 🎉</p>}
+			<p className={classes["counting-message"]}>
+				🎲 You've rolled {rollCounts} times
+			</p>
 			<DicePlane dice={dice} toggleDieHold={toggleDieHold} />
 			{!hasWon && <Button onClick={rollDice}>Roll</Button>}
 			{hasWon && <Button onClick={resetGame}> New Game</Button>}
