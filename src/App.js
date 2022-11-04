@@ -72,7 +72,11 @@ function App() {
 		const isAllSameValue = dice.every((die) => die.number === dice[0].number)
 		if (isAllDiceIsHeld && isAllSameValue) {
 			setHasWon(true)
-			if (rollCounts < highScore) {
+			if (!highScore) {
+				setHighScore(rollCounts)
+				localStorage.setItem("high-score", rollCounts)
+			}
+			else if(rollCounts < highScore) {
 				setHighScore(rollCounts)
 				localStorage.setItem("high-score", rollCounts)
 			}
